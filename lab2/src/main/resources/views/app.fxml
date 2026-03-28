@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controller.AppController"
+            prefHeight="600.0" prefWidth="1000.0">
+    <HBox spacing="15.0" AnchorPane.topAnchor="15.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <VBox spacing="10.0" HBox.hgrow="ALWAYS" prefWidth="500.0">
+            <Label text="Operations" style="-fx-font-weight: bold;" />
+            <Button fx:id="btnDirtyReads" text="Dirty Reads" maxWidth="Infinity" />
+            <Button fx:id="btnNonRepeatableRead" text="Non-Repeatable Read" maxWidth="Infinity" />
+            <Button fx:id="btnPhantomRead" text="Phantom Read" maxWidth="Infinity" />
+            <Button fx:id="btnLostUpdate" text="Lost Update" maxWidth="Infinity" />
+            <Button fx:id="btnDeadlock" text="Deadlock" maxWidth="Infinity" />
+            <Button fx:id="btnFixedDeadlock" text="Fixed Deadlock" maxWidth="Infinity" />
+            <Button fx:id="btnBatchProcessing" text="Batch Processing" maxWidth="Infinity" />
+
+            <BarChart fx:id="barChart" VBox.vgrow="ALWAYS" animated="false" legendVisible="false">
+              <xAxis>
+                <CategoryAxis fx:id="xAxis" side="BOTTOM" tickLabelRotation="-45" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT" />
+              </yAxis>
+            </BarChart>
+        </VBox>
+
+        <VBox spacing="10.0" HBox.hgrow="ALWAYS" prefWidth="500.0">
+            <Label text="Transaction A" style="-fx-font-weight: bold;" />
+            <TextArea fx:id="taTransactionA" style="-fx-text-fill: lightcoral;" VBox.vgrow="ALWAYS" />
+            <Label text="Transaction B" style="-fx-font-weight: bold;" />
+            <TextArea fx:id="taTransactionB" style="-fx-text-fill: lightblue;" VBox.vgrow="ALWAYS" />
+            <Label fx:id="errorLabel" textFill="RED" />
+        </VBox>
+
+    </HBox>
+
+</AnchorPane>

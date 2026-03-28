@@ -1,0 +1,28 @@
+23:49:28.692 [32mINFO [m [JavaFX Application Thread] [36mMainApp.start(18)[m - Starting app, Setting up services
+23:49:28.698 [32mINFO [m [JavaFX Application Thread] [36mMainApp.start(21)[m - Setting up FXML Scene
+23:49:30.663 [30mTRACE[m [pool-3-thread-1] [36mServiceApp.FixedDeadlock(274)[m - Enter
+23:49:30.851 [30mTRACE[m [Thread-3] [36mRepoApp.update(38)[m - Enter
+23:49:30.851 [30mTRACE[m [Thread-4] [36mRepoApp.update(38)[m - Enter
+23:49:32.866 [30mTRACE[m [Thread-4] [36mRepoApp.update(38)[m - Enter
+23:49:34.880 [30mTRACE[m [Thread-3] [36mRepoApp.update(38)[m - Enter
+23:49:39.549 [30mTRACE[m [pool-3-thread-1] [36mServiceApp.Deadlock(223)[m - Enter
+23:49:39.558 [30mTRACE[m [Thread-5] [36mRepoApp.update(38)[m - Enter
+23:49:39.558 [30mTRACE[m [Thread-6] [36mRepoApp.update(38)[m - Enter
+23:49:41.560 [30mTRACE[m [Thread-6] [36mRepoApp.update(38)[m - Enter
+23:49:41.560 [30mTRACE[m [Thread-5] [36mRepoApp.update(38)[m - Enter
+23:49:41.576 [1;31mERROR[m [Thread-5] [36mRepoApp.update(45)[m - com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+23:49:41.578 [1;31mERROR[m [Thread-5] [36mServiceApp.lambda$Deadlock$8(241)[m - Error connecting to database
+java.sql.SQLException: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+	at Repo.RepoApp.update(RepoApp.java:46)
+	at Service.ServiceApp.lambda$Deadlock$8(ServiceApp.java:235)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+Caused by: com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:124)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1054)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1003)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1312)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:988)
+	at Repo.RepoApp.update(RepoApp.java:42)
+	... 2 more
