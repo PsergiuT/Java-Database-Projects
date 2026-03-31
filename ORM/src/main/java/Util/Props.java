@@ -11,7 +11,7 @@ public class Props {
 
     public static Properties getProperties() {
         Properties properties = new Properties();
-        try (InputStream inputStream = Props.class.getClassLoader().getResourceAsStream("bd.config")) {
+        try (InputStream inputStream = Props.class.getClassLoader().getResourceAsStream("bd.properties")) {
             if (inputStream == null) {
                 logger.error("Properties file not found.");
                 return null;
