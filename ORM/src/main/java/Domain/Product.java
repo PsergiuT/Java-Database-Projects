@@ -20,7 +20,7 @@ public class Product {
     private String description;
 
     @OneToMany(mappedBy = "product",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderProduct> orders;
+    private List<Order> orders;
 
     public Product() {
     }
@@ -37,7 +37,7 @@ public class Product {
         return description;
     }
 
-    public List<OrderProduct> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
@@ -53,7 +53,7 @@ public class Product {
         this.description = description;
     }
 
-    public void setOrders(List<OrderProduct> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 }

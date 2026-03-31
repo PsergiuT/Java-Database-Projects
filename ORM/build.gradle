@@ -25,8 +25,6 @@ dependencies {
     implementation group: 'org.hibernate', name: 'hibernate-hikaricp', version: '7.3.0.Final' //deleted this: , ext: 'pom'
     implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.2.0'
 
-    implementation 'com.zaxxer:HikariCP:7.0.2'
-
 }
 
 javafx {

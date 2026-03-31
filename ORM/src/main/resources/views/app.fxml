@@ -8,68 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.AppControllerORM"
-            prefHeight="600.0" prefWidth="800.0">
-
-    <VBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0">
-
-        <HBox spacing="15.0" alignment="CENTER_LEFT">
-            <Label text="Client Filter:" />
-            <TextField fx:id="clientFilterTextField" promptText="Enter client filter..." />
-
-            <Label text="Client Sort:" />
-            <ComboBox fx:id="clientSortComboBox" promptText="Select sorting..." />
-
-            <Label text="Order Filter:" />
-            <TextField fx:id="orderFilterTextField" promptText="Enter order filter..." />
-
-            <Label text="Order Sort:" />
-            <ComboBox fx:id="orderSortComboBox" promptText="Select sorting..." />
-
-            <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefreshAction" />
-        </HBox>
-
-        <HBox spacing="20.0" VBox.vgrow="ALWAYS">
-            <!-- Client Table -->
-            <VBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-                <Label text="Clients" style="-fx-font-weight: bold; -fx-padding: 0 0 5 0;" />
-                <TableView fx:id="clientTableView" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="tableColumnClientId" text="ID" />
-                        <TableColumn fx:id="tableColumnClientName" text="Name" />
-                        <TableColumn fx:id="tableColumnClientEmail" text="Email" />
-                    </columns>
-                </TableView>
-            </VBox>
-
-            <VBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="10.0">
-                <Label text="Orders" style="-fx-font-weight: bold; -fx-padding: 0 0 5 0;" />
-                <TableView fx:id="orderTableView" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="tableColumnOrderId" text="Order ID" />
-                        <TableColumn fx:id="tableColumnOrderClientId" text="Customer ID" />
-                        <TableColumn fx:id="tableColumnOrderPurchaseDate" text="Purchase Date" />
-                    </columns>
-                </TableView>
-
-                <Label text="Data(yyyy-mm-dd): " />
-                <TextField fx:id="dateTextField" />
-
-                <!-- Action Buttons -->
-                <HBox spacing="10.0" alignment="CENTER">
-                    <Button fx:id="addButton" text="Adauga" onAction="#handleAddAction" />
-                    <Button fx:id="editButton" text="Editeaza" onAction="#handleEditAction" />
-                    <Button fx:id="deleteButton" text="Sterge" onAction="#handleDeleteAction" />
-                </HBox>
-                <HBox spacing="10.0" alignment="CENTER">
-                    <Button fx:id="benchmarkButton" text="Benchmark" onAction="#handleBenchmarkAction" />
-                    <Button fx:id="leakButton" text="Connection Leak" onAction="#handleLeakAction" />
-                </HBox>
-            </VBox>
-        </HBox>
-
-        <Label fx:id="errorLabel" text="" textFill="RED" />
-
-    </VBox>
+            fx:controller="Controller.AppController"
+            prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>

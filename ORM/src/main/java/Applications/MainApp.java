@@ -1,9 +1,7 @@
 package Applications;
 
-import Controller.AppControllerORM;
-import Repo.ConnectionType;
-import Repo.IRepo;
-import Repo.RepoDbConnection;
+import Controller.AppController;
+import Repo.RepoApp;
 import Service.ServiceApp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +16,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         logger.info("Starting app, Setting up services");
-        IRepo repoDbConnection = new RepoDbConnection(ConnectionType.POOL);
-        ServiceApp serviceApp = new ServiceApp(repoDbConnection);
+        ServiceApp serviceApp = new ServiceApp(new RepoApp());
 
         logger.info("Setting up FXML Scene");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/app.fxml"));
@@ -27,7 +24,7 @@ public class MainApp extends Application {
         stage.setTitle("App");
         stage.setScene(scene);
 
-        AppControllerORM controller = fxmlLoader.getController();
+        AppController controller = fxmlLoader.getController();
         controller.setService(serviceApp);
 
         stage.show();
