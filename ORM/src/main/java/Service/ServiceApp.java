@@ -9,10 +9,8 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -117,10 +115,36 @@ public class ServiceApp {
     public void ConnectionLeak(){
         System.out.println("--- Connection leak ---\n");
         HikariDataSource dataSource = JPAUtilPoolConnection.getDataSource();
+        List<Connection> connections = new ArrayList<>();
         for(int i = 1; i <= 15; i++){
             try {
                 System.out.println("Granted connection number: " + i);
                 Connection conn = dataSource.getConnection();
+                connections.add(conn);
+            }
+            catch (Exception e){
+                System.out.println("Error granting connection: " + e.getMessage());
+            }
+        }
+
+        for (Connection conn : connections) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing connection: " + e.getMessage());
+            }
+        }
+    }
+
+
+    public void HandledConnectionLeak(){
+        System.out.println("--- Handled Connection leak ---\n");
+        HikariDataSource dataSource = JPAUtilPoolConnection.getDataSource();
+        for(int i = 1; i <= 15; i++){
+            try {
+                System.out.println("Granted connection number: " + i);
+                Connection conn = dataSource.getConnection();
+                conn.close();
             }
             catch (Exception e){
                 System.out.println("Error granting connection: " + e.getMessage());

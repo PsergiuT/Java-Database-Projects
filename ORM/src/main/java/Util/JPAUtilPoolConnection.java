@@ -22,6 +22,8 @@ public class JPAUtilPoolConnection {
             config.setUsername(properties.getProperty("db.username"));
             config.setPassword(properties.getProperty("db.password"));
             config.setDriverClassName(properties.getProperty("db.driver"));
+            config.setConnectionTimeout(1000);
+            config.setMaxLifetime(10000);
             config.setMaximumPoolSize(10);
 
             dataSource = new HikariDataSource(config);

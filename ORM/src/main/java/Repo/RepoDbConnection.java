@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepoDbConnection implements IRepo{
@@ -64,6 +65,36 @@ public class RepoDbConnection implements IRepo{
             return orders;
         }
         catch (Exception e){
+            if(tx != null && tx.isActive()){
+                tx.rollback();
+            }
+            throw new Exception(e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
+
+
+    public List<String> GetCustomerOrderDates() throws Exception {
+        logger.traceEntry();
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try{
+            tx.begin();
+            List<Customer> customers = em.createQuery("SELECT c FROM Customer c LEFT JOIN FETCH c.orders", Customer.class).getResultList();
+            List<String> customerOrderDates = new ArrayList<>();
+            for(Customer c: customers){
+                StringBuilder s = new StringBuilder(c.getName() + " order dates: ");
+                for(Order o: c.getOrders()){
+                    s.append(o.getPurchase_date()).append(", ");
+                }
+                customerOrderDates.add(s.toString());
+            }
+            tx.commit();
+
+            return customerOrderDates;
+        } catch (Exception e) {
             if(tx != null && tx.isActive()){
                 tx.rollback();
             }

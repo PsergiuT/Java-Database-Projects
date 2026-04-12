@@ -1,11 +1,11 @@
-2026-03-31 19:12:31 [JavaFX Application Thread] DEBUG SQL - 
+2026-04-12 16:53:21 [JavaFX Application Thread] DEBUG SQL - 
     select
         c1_0.customer_id,
         c1_0.email,
         c1_0.name 
     from
         customers c1_0
-2026-03-31 19:12:31 [JavaFX Application Thread] DEBUG SQL - 
+2026-04-12 16:53:21 [JavaFX Application Thread] DEBUG SQL - 
     select
         o1_0.order_id,
         o1_0.customer_id,

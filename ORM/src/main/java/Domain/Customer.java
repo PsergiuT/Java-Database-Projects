@@ -21,6 +21,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Order> orders;
 
+//    @OneToMany(mappedBy = "customer",cascade=CascadeType.ALL, fetch = FetchType.EAGER)            // <-- for eager evaluation situation
+//    private List<Order> orders;
+
     public Customer(Long customer_id, String name, String email) {
         this.customer_id = customer_id;
         this.name = name;
@@ -38,6 +41,10 @@ public class Customer {
     }
     public String getEmail() {
         return email;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     public void setCustomer_id(Long customer_id) {

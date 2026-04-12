@@ -154,6 +154,7 @@ public class AppControllerORM {
     @FXML
     private void handleLeakAction(ActionEvent actionEvent) {
         service.ConnectionLeak();
+        service.HandledConnectionLeak();
     }
 }
 
