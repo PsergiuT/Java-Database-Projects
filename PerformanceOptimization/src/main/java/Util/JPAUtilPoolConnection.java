@@ -18,6 +18,7 @@ public class JPAUtilPoolConnection {
             Properties properties = Props.getProperties();
 
             HikariConfig config = new HikariConfig();
+            assert properties != null;
             config.setJdbcUrl(properties.getProperty("db.url"));
             config.setUsername(properties.getProperty("db.username"));
             config.setPassword(properties.getProperty("db.password"));

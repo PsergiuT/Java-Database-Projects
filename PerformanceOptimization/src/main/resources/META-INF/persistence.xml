@@ -15,8 +15,11 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
 
-            <property name="hibernate.jdbc.batch_size" value="50"/>
+            <property name="hibernate.jdbc.batch_size" value="200"/>
             <property name="hibernate.order_inserts" value="true"/>
+            <property name="hibernate.order_updates" value="true"/>
+
+
 
         </properties>
     </persistence-unit></persistence>

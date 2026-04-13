@@ -9,13 +9,93 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controller.AppController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="800.0" prefWidth="1500.0">
 
-    <HBox spacing="10.0" alignment="CENTER">
-        <Button fx:id="benchmarkButton" text="N + 1 Lazy" onAction="#handleNplus1Lazy" />
-        <Button fx:id="leakButton" text="N + 1 Eager" onAction="#handleNplus1Eager" />
-        <Button fx:id="benchmark" text="Without index" onAction="#handleBenchmarkWithoutIndex" />
-        <Button fx:id="leak" text="With index" onAction="#handleBenchmarkIndex" />
+    <HBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+        <VBox spacing="10.0" alignment="CENTER">
+            <Button fx:id="benchmarkButton" text="N + 1 Lazy" onAction="#handleNplus1Lazy" />
+            <Button fx:id="leakButton" text="N + 1 Eager" onAction="#handleNplus1Eager" />
+            <Button fx:id="Benchmark" text="Benchmark index" onAction="#handleBenchmarkIndex" />
+            <Button fx:id="Benchm" text="Reusing statement" onAction="#handleReusingStatement" />
+            <Button fx:id="Benchmxdfg" text="Operation optim." onAction="#handleMassOperationOptimization" />
+        </VBox>
+
+
+
+        <VBox spacing="10.0" alignment="CENTER">
+            <Label text="Limit/Offset Pagination" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+
+            <TableView fx:id="LimitOffsetTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="tableColumnEmpLOId" text="ID" prefWidth="100.0" />
+                    <TableColumn fx:id="tableColumnEmpEmailLO" text="Email" prefWidth="250.0" />
+                    <TableColumn fx:id="tableColumnEmpDeptIdLO" text="Dept ID" prefWidth="100.0" />
+                    <TableColumn fx:id="tableColumnEmpSalaryLO" text="Salary" prefWidth="150.0" />
+                </columns>
+            </TableView>
+
+            <HBox spacing="10.0" alignment="CENTER">
+                <Label text="Page Number:" />
+                <Label fx:id="pageNumberLabel" text="1" />
+                <Label text="Page Size:" />
+                <Label fx:id="pageSizeLabel" text="20" />
+                <Label text="Total Elements:" />
+                <Label fx:id="totalNumberOfElementsLabel" text="0" />
+                <Label text="Total Pages:" />
+                <Label fx:id="totalNumberOfPagesLabel" text="0" />
+            </HBox>
+
+            <HBox spacing="10.0" alignment="CENTER">
+                <Button text="Previous" onAction="#handlePreviousPage" />
+                <Button text="Next" onAction="#handleNextPage" />
+
+                <Label text="Set Page Number:" />
+                <TextField fx:id="pageNumberTextField" prefWidth="50.0" />
+                <Button text="Go" onAction="#handlePageNumberChange" />
+
+                <Label text="Set Page Size:" />
+                <TextField fx:id="pageSizeTextField" prefWidth="50.0" />
+                <Button text="Set" onAction="#handlePageSizeChange" />
+            </HBox>
+
+            <Label fx:id="limitOffsetErrorLabel" textFill="RED" />
+        </VBox>
+
+
+        <VBox spacing="10.0" alignment="CENTER">
+
+            <Label text="Keyset Pagination" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+
+            <TableView fx:id="KeysetTableView" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="tableColumnEmpKSId" text="ID" prefWidth="100.0" />
+                    <TableColumn fx:id="tableColumnEmpEmailKS" text="Email" prefWidth="250.0" />
+                    <TableColumn fx:id="tableColumnEmpDeptIdKS" text="Dept ID" prefWidth="100.0" />
+                    <TableColumn fx:id="tableColumnEmpSalaryKS" text="Salary" prefWidth="150.0" />
+                </columns>
+            </TableView>
+
+            <HBox spacing="10.0" alignment="CENTER">
+                <Label text="Index value:" />
+                <Label fx:id="pageLastIndexKS" text="1" />
+                <Label text="Page Size:" />
+                <Label fx:id="pageSizeLabelKS" text="20" />
+                <Label text="Total Elements:" />
+                <Label fx:id="totalNumberOfElementsLabelKS" text="0" />
+                <Label text="Total Pages:" />
+                <Label fx:id="totalNumberOfPagesLabelKS" text="0" />
+            </HBox>
+
+            <HBox spacing="10.0" alignment="CENTER">
+                <Button text="Previous" onAction="#handlePreviousPageKS" />
+                <Button text="Next" onAction="#handleNextPageKS" />
+
+            </HBox>
+
+            <Label fx:id="limitOffsetErrorLabelKS" textFill="RED" />
+
+        </VBox>
+
     </HBox>
 
 </AnchorPane>
