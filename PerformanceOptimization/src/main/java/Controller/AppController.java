@@ -159,6 +159,11 @@ public class AppController {
         //TODO: implement Benchmark Without Index
     }
 
+    @FXML
+    public void handleBenchmarkCache(ActionEvent actionEvent){
+        service.benchmarckCache();
+    }
+
 
     private void initLimitOffsetModel(){
         limitOffsetErrorLabel.setText("");

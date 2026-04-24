@@ -63,7 +63,11 @@ While both present advantages and disadvantages, the winner of these approaches 
 
 ## Caching (EhCache)
 
-# TODO: add doc
+I added EhCache to the project so i can benchmark the performance of caching the employees inside app memory. The results are shown below:
+
+<div align="center">
+    <img src="assets/cacheBenchmark.png" width="60%" height="60%" alt=" ">
+</div>
 
 
 ## Mass operation optimization

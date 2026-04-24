@@ -52,6 +52,10 @@ public class ServiceApp {
         repo.reusingStatement();
     }
 
+    public void benchmarckCache(){
+        repo.benchmarckCache();
+    }
+
     public void massOperationOptimization()
     {
         repo.massOperationOptimization();

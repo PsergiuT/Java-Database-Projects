@@ -8,7 +8,16 @@ import Util.Page;
 import jakarta.persistence.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.ehcache.Cache;
+import org.ehcache.CacheManager;
+import org.ehcache.config.ResourcePools;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
 
+
+import java.time.Duration;
 import java.util.List;
 
 
@@ -16,9 +25,86 @@ public class RepoDB {
     private static EntityManagerFactory emf;
     private static final Logger logger = LogManager.getLogger();
 
+    private final CacheManager cacheManager;
+    private final Cache<Long, Employee> cache;
+
     public RepoDB(){
         emf = JPAUtilPoolConnection.getEntityManagerFactory();
+
+        this.cacheManager = CacheManagerBuilder.newCacheManagerBuilder().build(true);
+        this.cache = cacheManager.createCache("employees",
+                CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class, Employee.class,
+                        ResourcePoolsBuilder.heap(100))          // max 100 employees in cache
+                    .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(3))) // TTL 3 seconds
+                    .build());
     }
+
+
+    public Employee getEmployeeById(Long id){
+        Employee employee = cache.get(id);
+
+        if (employee == null) {
+            EntityManager em = emf.createEntityManager();
+            employee = em.find(Employee.class, id);
+            if (employee != null) {
+                cache.put(id, employee);
+                System.out.println("[CACHE MISS] Employee " + id + " not found in cache, added to cache");
+                return employee;
+            }
+        }
+        System.out.println("[CACHE HIT] Employee " + id + " found in cache");
+        return employee;
+    }
+
+
+    public void update(Employee emp){
+        System.out.println("[UPDATE] Employee " + emp.getId() + ". Evicting cache...");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try{
+            tx.begin();
+            emp.setSalary(emp.getSalary() - 1);
+            em.merge(emp);
+            tx.commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        cache.remove(emp.getId());
+    }
+
+    public void close(){
+        cacheManager.close();
+    }
+
+
+    public void benchmarckCache(){
+        System.out.println("----- Benchmarking cache -----\n");
+        System.out.println("First load (no cache)");
+        solveIndexProblems(() -> {getEmployeeById(2478L);});
+        System.out.println("\n");
+        System.out.println("Second load (cached)");
+        solveIndexProblems(() -> {getEmployeeById(2478L);});
+        System.out.println("\n");
+
+        System.out.println("Cache eviction:");
+        Employee emp = getEmployeeById(2478L);
+        update(emp);
+        solveIndexProblems(() -> {getEmployeeById(2478L);});
+        System.out.println("\n");
+
+        System.out.println("Waiting for TTL to expire...");
+        try {
+            Thread.sleep(3200);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        solveIndexProblems(() -> {getEmployeeById(2478L);});
+
+        close();
+    }
+
 
     public void Nplus1Lazy(){
         logger.traceEntry();
@@ -200,11 +286,6 @@ public class RepoDB {
     }
 
 
-//    @Cacheable("customers")
-//    public Customer getCustomerById(Long id){
-//        EntityManager em = emf.createEntityManager();
-//        return em.find(Customer.class, id);
-//    }
 
 
 

@@ -18,6 +18,7 @@
             <Button fx:id="Benchmark" text="Benchmark index" onAction="#handleBenchmarkIndex" />
             <Button fx:id="Benchm" text="Reusing statement" onAction="#handleReusingStatement" />
             <Button fx:id="Benchmxdfg" text="Operation optim." onAction="#handleMassOperationOptimization" />
+            <Button fx:id="Bexdfg" text="Benchmark cache" onAction="#handleBenchmarkCache" />
         </VBox>
 
 
